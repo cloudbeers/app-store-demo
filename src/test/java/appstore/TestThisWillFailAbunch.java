@@ -8,13 +8,13 @@ import org.junit.Test;
 public class TestThisWillFailAbunch {
     @Test
     public void aFailingTest() {
-         assertTrue("I expected this to pass!", true);
+         assertTrue("I expected this to pass!", false);
     }
 
     @Ignore
     @Test
     public void aFailingTest2() {
-         assertTrue("I expected this to pass!", true);
+         assertTrue("I expected this to pass!", false);
     }
 
     @Ignore
@@ -32,7 +32,7 @@ public class TestThisWillFailAbunch {
     @Ignore
     @Test
     public void aNewFailingTest31() {
-         assertTrue("I expected this to pass!", true);
+         assertTrue("I expected this to pass!", false);
     }
 
     @Test

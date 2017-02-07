@@ -15,39 +15,47 @@ public class TestThisWillFailAbunch {
     @Test
     public void aFailingTest2() {
          assertTrue("I expected this to pass!", false);
+        // doSomething();
+        assertTrue("I expected this to pass!", false);
     }
 
     @Ignore
     @Test
     public void aFailingTest3() {
-         assertTrue("I expected this to pass!", true);
+        // doSomething();
+        assertTrue("I expected this to pass!", true);
     }
 
     //@Ignore
     @Test
     public void aFailingTest4() {
-         assertTrue("I expected this to pass!", true);
+      //  doSomething();
+        assertTrue("I expected this to pass!", true);
     }
 
     @Ignore
     @Test
     public void aNewFailingTest31() {
-         assertTrue("I expected this to pass!", false);
+      //  doSomething();
+        assertTrue("I expected this to pass!", false);
     }
 
     @Test
     public void aNotherNewFailingTest4() {
-         assertTrue("I expected this to pass!", true);
+        doSomething();
+        assertTrue("I expected this to pass!", true);
     }
 
     @Test
     public void aFailingTest5() {
-         assertTrue("I expected this to pass!", true);
+        // doSomething();
+       assertTrue("I expected this to pass!", true);
     }
 
     @Test
     public void aFailingTest6() {
-         assertTrue("I expected this to pass!", true);
+        // doSomething();
+        assertTrue("I expected this to pass!", true);
     }
 
     @Test
@@ -58,5 +66,19 @@ public class TestThisWillFailAbunch {
     @Test
     public void aPassingTest4() {
          assertTrue("Success!", true);
+    }
+
+    private void doSomething() {
+        interesting();
+    }
+    private void interesting() {
+        RubeGoldburgMachine machine = new RubeGoldburgMachine();
+        machine.processPayment();
+    }
+
+    private class RubeGoldburgMachine {
+        void processPayment() {
+            throw new IllegalStateException("bad payment code");
+        }
     }
 }

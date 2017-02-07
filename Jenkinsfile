@@ -1,38 +1,46 @@
 pipeline {
-    agent docker:'maven:3.3.3'
+    agent any
     stages {
         stage ('Build') {
-            sh 'mvn clean source:jar package'
+            steps {
+              sh 'mvn clean source:jar package'
+            }
         }
         stage ('Browser Tests') {
-            parallel (
-                'Firefox': {
-                    sh "echo 'setting up selenium environment'"
-                    sh 'sleep 5'
-                },
-                'Safari': {
-                    sh "echo 'setting up selenium environment'"
-                    sh 'sleep 5'
-                },
-                'Chrome': {
-                    sh "echo 'setting up selenium environment'"
-                    sh 'sleep 3'
-                },
-                'Internet Explorer': {
-                    sh "echo 'setting up selenium environment'"
-                    sh 'sleep 3'
-                }
-              )
+            steps {
+              parallel (
+                  'Firefox': {
+                      sh "echo 'setting up selenium environment'"
+                      sh 'ping -c 5 localhost'
+                  },
+                  'Safari': {
+                      sh "echo 'setting up selenium environment'"
+                      sh 'ping -c 8 localhost'
+                  },
+                  'Chrome': {
+                      sh "echo 'setting up selenium environment'"
+                      sh 'ping -c 3 localhost'
+                  },
+                  'Internet Explorer': {
+                      sh "echo 'setting up selenium environment'"
+                      sh 'ping -c 4 localhost'
+                  }
+                )
+            }
         }
         stage ('Static Analysis') {
-            sh 'mvn findbugs:findbugs'
+            steps {
+              sh 'mvn findbugs:findbugs'
+            }
         }
-        stage ('Package') {
-            sh 'mvn source:jar package -Dmaven.test.skip'
+        stage ('Deploy') {
+            steps {
+              sh 'mvn source:jar package -Dmaven.test.skip'
+            }
         }
     }
 
-    postBuild {
+    post {
         always {
             junit '**/target/surefire-reports/TEST-*.xml'
             archive '**/target/*.jar'
